@@ -1,0 +1,17 @@
+<div class="article-container">
+    <h1 class="article-heading">Articles</h1>
+    <div class="articles">
+        <table class="articles-table">
+            <tr>
+                <th> Title </th>
+                <th> Description </th>
+            </tr>
+            <% @articles.each do |article|%>
+                <tr>
+                    <td> <%= article.title %>
+                    <td> <%= article.description%>
+                <tr>
+            <% end %>
+        </table>
+    </div>
+</div>
