@@ -1,20 +1,28 @@
 class ArticlesController < ApplicationController
     def all_articles
-        @articles = Article.all;
+        Rails.logger.info "Action::all_article"
+        @articles = Article.all
     end
 
     def show
+        Rails.logger.info "Action::show"
         @article = Article.find(params[:id])
     end
 
     def new
-        @article = Article.new();
+        Rails.logger.info "Action::new"
+        @article = Article.new()
+    end
+
+    def edit
+        Rails.logger.info "Action::edit"
+        @article = Article.find(params[:id])
+        
     end
 
     def create
-        # Rails.logger.info "Params#{params}"
+        Rails.logger.info "Action::create"
         @article = Article.new(params.require(:article).permit(:title, :description));
-        # Rails.logger.info "#{@article.id}"
         if (@article.save)
             flash[:notice] = "Article created!"
             redirect_to "/articles/#{@article.id}"
@@ -23,7 +31,23 @@ class ArticlesController < ApplicationController
             render "articles/new"
         end
 
-        # redirect_to '/articles'
-        # render template: "articles/all_articles"
+    end
+
+    def update
+
+        Rails.logger.info "Action::update"
+        Rails.logger.info "#{params}"
+        @article = Article.find(params[:id])
+        if @article.update(params.require(:article).permit(:title, :description))
+            flash[:notice] = "Updated sucessfully";
+            redirect_to "/articles/#{@article.id}"
+        else
+            flash[:alert] = "Something went wrong"
+            redirect_to "/articles/#{params[:id]}/edit"
+        end
+
+    
+
+        
     end
 end
