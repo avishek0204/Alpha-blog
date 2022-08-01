@@ -10,5 +10,8 @@ Rails.application.routes.draw do
 
   # Articles URLS
   get '/articles', action: :all_articles, controller: 'articles'
+  get '/articles/new', action: :new, controller: 'articles'
+  post '/articles', action: :create, controller: 'articles'
   get '/articles/:id', action: :show, controller: 'articles'
+
 end
