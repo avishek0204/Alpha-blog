@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-    def all_articles
+    def index
         Rails.logger.info "Action::all_article"
         @articles = Article.all
     end
@@ -36,18 +36,18 @@ class ArticlesController < ApplicationController
     def update
 
         Rails.logger.info "Action::update"
-        Rails.logger.info "#{params}"
         @article = Article.find(params[:id])
         if @article.update(params.require(:article).permit(:title, :description))
             flash[:notice] = "Updated sucessfully";
             redirect_to "/articles/#{@article.id}"
         else
             flash[:alert] = "Something went wrong"
-            redirect_to "/articles/#{params[:id]}/edit"
+            redirect_to "/articles/#{@article.id}/edit"
         end
 
-    
+    end
 
-        
+    def destroy
+        @article = Article.find(params[:id]) 
     end
 end

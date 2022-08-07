@@ -1,6 +1,13 @@
 <h1> Edit article </h1>
+<%
+    errors = @article.errors.full_messages;
+%>
 
-
+<ul class="error_messages">
+    <% errors.each do |error| %>
+        <li><%= error %></li>
+    <% end %>
+<ul>
 <%= form_with model: @article, url: article_path, method: :patch, local: true do |f| %>
     <p>
         <%= f.label :title %>
